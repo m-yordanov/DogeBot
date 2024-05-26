@@ -15,7 +15,7 @@ bot = discord.ext.commands.Bot(command_prefix=['='], help_command = None, intent
 
 @bot.event
 async def on_ready():
-  await bot.change_presence(activity=discord.Streaming(name='Your nudes', url='https://www.twitch.tv/random_e%27)'))
+  await bot.change_presence(activity=discord.Game(name="=help"))
   print('We have logged in as {0.user}'.format(bot))
 
 def get_quote():
