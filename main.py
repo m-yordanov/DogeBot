@@ -1,7 +1,7 @@
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-# import wikipediaapi
+import wikipediaapi
 import random
 from random import randrange
 import os
@@ -56,7 +56,9 @@ async def clear(ctx, amount=100):
 async def wiki(ctx, *query):
     if query:
          query = " ".join(query)
-         wiki_wiki = wikipediaapi.Wikipedia('en')
+         wiki_wiki = wikipediaapi.Wikipedia(
+         user_agent='DogeBot',
+         language='en')
          page_py = wiki_wiki.page(query)
          page_finished = str(page_py.summary[:1800])
          if not page_finished:
