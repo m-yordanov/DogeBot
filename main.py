@@ -90,31 +90,35 @@ async def coinflip(ctx):
 
 @bot.command()
 async def dog(ctx):
-   async with aiohttp.ClientSession() as session:
-      request = await session.get('https://some-random-api.ml/img/dog')
-      dogjson = await request.json()
-
-      request2 = await session.get('https://some-random-api.ml/facts/dog')
-      factjson = await request2.json()
-
-   embed = discord.Embed(title="Doggo!", color=discord.Color.purple())
-   embed.set_image(url=dogjson['link'])
-   embed.set_footer(text=factjson['fact'])
-   await ctx.send(embed=embed)
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://some-random-api.com/animal/dog') as response:
+            if response.status == 200:
+                data = await response.json()
+                dog_url = data['image']
+                dog_fact = data['fact']
+                
+                embed = discord.Embed(title="Doggo!", color=discord.Color.purple())
+                embed.set_image(url=dog_url)
+                embed.set_footer(text=dog_fact)
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("Could not fetch a dog right now.")
 
 @bot.command()
 async def cat(ctx):
-   async with aiohttp.ClientSession() as session:
-      request = await session.get('https://some-random-api.ml/img/cat')
-      dogjson = await request.json()
-
-      request2 = await session.get('https://some-random-api.ml/facts/cat')
-      factjson = await request2.json()
-
-   embed = discord.Embed(title="Cat!", color=discord.Color.purple())
-   embed.set_image(url=dogjson['link'])
-   embed.set_footer(text=factjson['fact'])
-   await ctx.send(embed=embed)
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://some-random-api.com/animal/cat') as response:
+            if response.status == 200:
+                data = await response.json()
+                cat_url = data['image']
+                cat_fact = data['fact']
+                
+                embed = discord.Embed(title="Cat!", color=discord.Color.purple())
+                embed.set_image(url=cat_url)
+                embed.set_footer(text=cat_fact)
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("The cats are sleeping, try again later.")
 
 @bot.event
 async def on_message(message):
@@ -124,4 +128,4 @@ async def on_message(message):
   await bot.process_commands(message)
   
 # keep_alive()
-bot.run('TOKEN')
+bot.run('token')
