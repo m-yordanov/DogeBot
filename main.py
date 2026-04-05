@@ -1,7 +1,7 @@
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-import wikipediaapi
+# import wikipediaapi
 import random
 from random import randrange
 import os
@@ -9,7 +9,7 @@ import requests
 import json
 import asyncio
 import aiohttp
-from keep_alive import keep_alive
+# from keep_alive import keep_alive
 
 bot = discord.ext.commands.Bot(command_prefix=['='], help_command = None, intents=discord.Intents.all())
 
@@ -27,7 +27,7 @@ def get_quote():
 @bot.command()
 async def help(ctx):
     embed=discord.Embed(title="Commands list", description="", color=0xFEDA30)
-    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
     embed.add_field(name="=wiki", value="Sends the summary of a wiki article about the search query.", inline=True)
     embed.add_field(name="=inspire", value="Sends an inspiration quote.", inline=False)
     embed.add_field(name="=coinflip", value="Flips a coin.", inline=False)
@@ -121,5 +121,5 @@ async def on_message(message):
     
   await bot.process_commands(message)
   
-keep_alive()
-bot.run(os.getenv('TOKEN'))
+# keep_alive()
+bot.run('TOKEN')
